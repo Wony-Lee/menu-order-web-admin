@@ -1,12 +1,13 @@
 import React from 'react'
 import { TableItemLayout } from './styled'
 
-const TableItem = ({ name }) => {
+const TableItem = ({ children, width }) => {
+
     return (
-        <TableItemLayout width={100}>
-            {name}
+        <TableItemLayout width={width}>
+            {children}
         </TableItemLayout>
     )
 }
 
-export default TableItem
+export default React.memo(TableItem)

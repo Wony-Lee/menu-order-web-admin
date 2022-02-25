@@ -1,5 +1,5 @@
 {
-    "item": [
+    "menuList": [
         {
             "id": 1,
             "name": "메뉴관리"
@@ -19,6 +19,36 @@
         {
             "id": 5,
             "name": "권한관리"
+        }
+    ],
+    "menuItem": [
+        {
+            "id": 1,
+            "name": "아메리카노",
+            "imagePath": "1",
+            "price": 2000,
+            "desc": "아메리카노 설명"
+        },
+        {
+            "id": 2,
+            "name": "카페라떼",
+            "imagePath": "2",
+            "price": 3000,
+            "desc": "카페라떼 설명"
+        },
+        {
+            "id": 3,
+            "name": "콜드브루",
+            "imagePath": "3",
+            "price": 3000,
+            "desc": "콜드브루 설명"
+        },
+        {
+            "id": 4,
+            "name": "바닐라 라떼",
+            "imagePath": "4",
+            "price": 3000,
+            "desc": "바닐라 라떼 설명"
         }
     ]
 }

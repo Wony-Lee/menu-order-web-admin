@@ -1,16 +1,16 @@
 import React from 'react'
 import MenuItem from './MenuItem'
 import { MenuLayout, MenuUl } from './styled'
-import { item } from '../../__mocks__/menudb.json'
+import { menuList } from '../../__mocks__/menudb.json'
 
 const MenuBar = () => {
-    const Items = item;
-    console.log('Menu', Items)
+    const menus = menuList;
+    console.log('Menu', menus)
     return (
         <MenuLayout>
             <MenuUl>
                 {
-                    Items.map(item => <MenuItem key={item.id}>{item.name}</MenuItem>)
+                    menus.map(menu => <MenuItem key={menu.id}>{menu.name}</MenuItem>)
                 }
             </MenuUl>
         </MenuLayout>
