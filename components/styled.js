@@ -6,6 +6,6 @@ export const BodyLayout = styled.div`
 `;
 
 export const ContentLayout = styled.div`
-
+    width:100%;
 `;
 

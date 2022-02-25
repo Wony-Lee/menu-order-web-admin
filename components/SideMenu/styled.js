@@ -24,7 +24,7 @@ export const MenuUl = styled.ul`
         border:1px solid white;
         margin: 15px;
         cursor:pointer;
-        &:hover {
+        &:hover{
             border:1px solid black;
             color:black;
         }

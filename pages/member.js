@@ -4,7 +4,7 @@ import AppLayout from '../components/AppLayout'
 const Member = () => {
     return (
         <AppLayout>
-            Member
+            Hello World
         </AppLayout>
     )
 }

@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react'
-import Link from 'next/link'
 import Router from 'next/router'
 
 const MenuItem = ({ children }) => {
     const router = Router
-    const HandleLocation = useCallback(() => {
+    const handleLocation = useCallback(() => {
         switch (children) {
             case '메뉴관리':
                 router.push('/menu')
@@ -26,7 +25,7 @@ const MenuItem = ({ children }) => {
     }, [])
 
     return (
-        <li onClick={HandleLocation}>
+        <li onClick={handleLocation}>
             {children}
         </li>
 
