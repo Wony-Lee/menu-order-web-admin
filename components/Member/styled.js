@@ -1,21 +1,23 @@
 import styled from '@emotion/styled'
 
 export const TableLayout = styled.div`
-    width:100%;  
+    width:100%;
+    .col {
+        flex-direction: column;
+    }
+    .row {
+
+    }
 `;
 
-export const TableRow = styled.div`
+export const TableTh = styled.div`
     width:100%;
     display:flex;
+    
 `;
 
-export const TableCol = styled.div`
-    width:100%;
-    display:flex;
-    flex-direction: column;
-`;
 
-export const TableItemLayout = styled.div`
+export const TableTd = styled.div`
     display:flex;
     align-items: center;
     justify-content: center;
