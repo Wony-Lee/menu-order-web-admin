@@ -1,11 +1,13 @@
 import React from 'react'
 
-const Tabletd = ({ param }) => {
+const TableTd = ({ param, edit }) => {
     return (
         <div className="td">
-            {param}
+            {
+                edit ? <input value={param} /> : param
+            }
         </div>
     )
 }
 
-export default Tabletd
+export default TableTd

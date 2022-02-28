@@ -8,8 +8,9 @@ import Button from '../Element/Button';
 import TableTd from './TableTd'
 
 
-const Table = ({ read, edit }) => {
+const Table = ({ }) => {
     const [items, setItems] = useState(menuItem)
+    const [edit, setEdit] = useState(false)
     const router = Router;
     const handleAddData = useCallback(async () => {
         const addItem = {}
@@ -17,17 +18,32 @@ const Table = ({ read, edit }) => {
     }, [])
 
     const handleEdit = useCallback(async () => {
-        router.push('/menu/edit')
-    }, [])
+        setEdit(true)
+        // router.push('/menu/edit')
+    }, [edit])
+
+    const handleSuccess = useCallback(async () => {
+        setEdit(false)
+    }, [edit])
 
     const handleLoadData = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:4444/menu`)
+            const response = await axios.get(`http://localhost:4444/menu/list`)
             console.log('response Data => ', response)
         } catch (e) {
             console.error(e)
         }
     }, [])
+    // const defaultSet = [{
+    //     name: '이미지'
+    // }, {
+    //     name: '메뉴명'
+    // }, {
+    //     name: '가격'
+    // }, {
+    //     name: '설명'
+    // }
+    // ]
     useEffect(() => {
         handleLoadData()
     }, [])
@@ -41,9 +57,11 @@ const Table = ({ read, edit }) => {
                             <Button
                                 width={120}
                                 bg={"primary"}
-                                onClick={handleEdit}>
-                                수정하기
-                                </Button>
+                                onClick={edit ? handleSuccess : handleEdit}>
+                                {
+                                    edit ? '수정완료' : '수정하기'
+                                }
+                            </Button>
                         </div>
                         <div>
                             <Button
@@ -63,10 +81,10 @@ const Table = ({ read, edit }) => {
                     {
                         items.map(item =>
                             <div key={item.id} className="row">
-                                <TableTd param={item.imagePath} />
-                                <TableTd param={item.name} />
-                                <TableTd param={item.price} />
-                                <TableTd param={item.desc} />
+                                <TableTd param={item.imagePath} edit={edit} />
+                                <TableTd param={item.name} edit={edit} />
+                                <TableTd param={item.price} edit={edit} />
+                                <TableTd param={item.desc} edit={edit} />
                             </div>
                         )
                     }
