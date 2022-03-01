@@ -4,7 +4,7 @@ import { NavLayout } from './styled';
 const Navigation = () => {
     return (
         <NavLayout>
-            <p>Admin Web</p>
+            <h1>Admin Web</h1>
         </NavLayout>
     )
 }

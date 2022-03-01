@@ -8,7 +8,7 @@ import Button from '../Element/Button';
 import TableTd from './TableTd'
 
 
-const Table = ({ }) => {
+const Table = () => {
     const [items, setItems] = useState(menuItem)
     const [edit, setEdit] = useState(false)
     const router = Router;
@@ -19,6 +19,7 @@ const Table = ({ }) => {
 
     const handleEdit = useCallback(async () => {
         setEdit(true)
+        console.log(items)
         // router.push('/menu/edit')
     }, [edit])
 
