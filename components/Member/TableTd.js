@@ -1,12 +1,9 @@
 import React from 'react'
-import Input from '../Element/Input'
 
-const TableTd = ({ param, edit }) => {
+const TableTd = ({ children }) => {
     return (
         <div className="td">
-            {
-                edit ? <Input value={param} /> : param
-            }
+            {children}
         </div>
     )
 }

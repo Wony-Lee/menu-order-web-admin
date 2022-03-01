@@ -1,16 +1,21 @@
 import React, { useCallback, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Router from 'next/router'
 import TableItem from './TableItem'
 import { TableWrap, TableLayout } from './styled';
+
 import { menuItem } from '../../__mocks__/menudb.json'
 import Button from '../Element/Button';
+import Input from '../Element/Input'
 import TableTd from './TableTd'
 
 
 const Table = () => {
+    const { menuText } = useSelector(state => state.menu)
     const [items, setItems] = useState(menuItem)
     const [edit, setEdit] = useState(false)
+
     const router = Router;
     const handleAddData = useCallback(async () => {
         const addItem = {}
@@ -28,23 +33,16 @@ const Table = () => {
     }, [edit])
 
     const handleLoadData = useCallback(async () => {
-        try {
-            const response = await axios.get(`http://localhost:4444/menu/list`)
-            console.log('response Data => ', response)
-        } catch (e) {
-            console.error(e)
-        }
+        // try {
+        //     const response = await axios.get(`http://localhost:4444/menu/list`)
+        //     console.log('response Data => ', response)
+        // } catch (e) {
+        //     console.error(e)
+        // }
     }, [])
-    // const defaultSet = [{
-    //     name: '이미지'
-    // }, {
-    //     name: '메뉴명'
-    // }, {
-    //     name: '가격'
-    // }, {
-    //     name: '설명'
-    // }
-    // ]
+    // const handleUpdate = useCallback(() => {
+
+    // }, [])
     useEffect(() => {
         handleLoadData()
     }, [])
@@ -78,14 +76,31 @@ const Table = () => {
                         <div className="td">메뉴명</div>
                         <div className="td">가격</div>
                         <div className="td">설명</div>
+                        <div>{menuText}</div>
                     </div>
                     {
                         items.map(item =>
                             <div key={item.id} className="row">
-                                <TableTd param={item.imagePath} edit={edit} />
-                                <TableTd param={item.name} edit={edit} />
-                                <TableTd param={item.price} edit={edit} />
-                                <TableTd param={item.desc} edit={edit} />
+                                <TableTd  >
+                                    {
+                                        edit ? <Input value={item.imagePath} /> : item.imagePath
+                                    }
+                                </TableTd>
+                                <TableTd>
+                                    {
+                                        edit ? <Input value={item.name} /> : item.name
+                                    }
+                                </TableTd>
+                                <TableTd>
+                                    {
+                                        edit ? <Input value={item.price} /> : item.price
+                                    }
+                                </TableTd>
+                                <TableTd>
+                                    {
+                                        edit ? <Input value={item.desc} /> : item.desc
+                                    }
+                                </TableTd>
                             </div>
                         )
                     }

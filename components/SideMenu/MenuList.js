@@ -10,7 +10,7 @@ const MenuBar = () => {
         <MenuLayout>
             <MenuUl>
                 {
-                    menus.map(menu => <MenuItem key={menu.id}><h2>{menu.name}</h2></MenuItem>)
+                    menus.map(menu => <MenuItem key={menu.id}>{menu.name}</MenuItem>)
                 }
             </MenuUl>
         </MenuLayout>

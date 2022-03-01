@@ -26,7 +26,7 @@ const MenuItem = ({ children }) => {
 
     return (
         <li onClick={handleLocation}>
-            {children}
+            <h2>{children}</h2>
         </li>
 
     )
