@@ -18,9 +18,7 @@ export const TableWrap = styled.div`
             align-items:center;
             width:50%;
             height:100%;
-            &:first-of-type {
-                border-right:1px solid #ddd;
-            }
+    
             border-bottom:1px solid #ddd;
         }
     }

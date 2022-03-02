@@ -1,71 +1,99 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Router from 'next/router'
 import TableItem from './TableItem'
 import { TableWrap, TableLayout } from './styled';
 
-import { menuItem } from '../../__mocks__/menudb.json'
 import Button from '../Element/Button';
 import Input from '../Element/Input'
 import TableTd from './TableTd'
+import { EDIT_STATE_OFF, EDIT_STATE_ON } from '../../reducer/menu'
+import { BACK_URL } from '../../config/config'
 
 
 const Table = () => {
-    const { menuText } = useSelector(state => state.menu)
-    const [items, setItems] = useState(menuItem)
-    const [edit, setEdit] = useState(false)
-
+    const { editState } = useSelector(state => state.menu)
+    const [items, setItems] = useState([])
+    const { menuItem } = useSelector(state => state.menu)
+    const [data, setData] = useState([])
+    const dispatch = useDispatch()
     const router = Router;
+
     const handleAddData = useCallback(async () => {
-        const addItem = {}
+        const addItem = {
+            id: menuItem.length += 1,
+            imagePath: "5" + menuItem.length,
+            name: '',
+            price: '',
+            desc: '',
+        }
         setItems(prev => prev.concat(addItem))
-    }, [])
-
+    }, [menuItem])
+    const handleCheck = useCallback(() => {
+        // setEdit(true)
+    }, [menuItem])
     const handleEdit = useCallback(async () => {
-        setEdit(true)
-        console.log(items)
-        // router.push('/menu/edit')
-    }, [edit])
-
+        dispatch({
+            type: EDIT_STATE_ON
+        })
+    }, [editState])
     const handleSuccess = useCallback(async () => {
-        setEdit(false)
-    }, [edit])
+        dispatch({
+            type: EDIT_STATE_OFF,
+
+        })
+    }, [editState])
+
 
     const handleLoadData = useCallback(async () => {
-        // try {
-        //     const response = await axios.get(`http://localhost:4444/menu/list`)
-        //     console.log('response Data => ', response)
-        // } catch (e) {
-        //     console.error(e)
-        // }
+        try {
+            const pages = { page: 0, pageSize: 5 }
+            const response = await axios.get(`${BACK_URL}/v1/item?page=${pages.page}&pageSize=${pages.pageSize}`)
+            // console.log('response Data => ', response)
+            // setData(response)
+            console.log('response Data => ', data)
+        } catch (e) {
+            console.error(e)
+        }
     }, [])
     // const handleUpdate = useCallback(() => {
 
     // }, [])
     useEffect(() => {
         handleLoadData()
+        setItems(menuItem)
+        console.log('items => ', items)
     }, [])
 
     return (
         <TableLayout>
-            <TableWrap width={100 / items.length}>
+            <TableWrap width={100 / 4}>
                 <div className="col">
                     <div className="row-head">
                         <div>
                             <Button
                                 width={120}
                                 bg={"primary"}
-                                onClick={edit ? handleSuccess : handleEdit}>
-                                {
-                                    edit ? '수정완료' : '수정하기'
-                                }
+                                onClick={handleEdit}
+                            >
+                                수정하기
                             </Button>
                         </div>
                         <div>
                             <Button
                                 width={120}
                                 bg={"error"}
+                                onClick={handleAddData}
+                            >
+                                추가하기
+                            </Button>
+                        </div>
+                        <div>
+                            <Button
+                                width={120}
+                                bg={"primary"}
+                                onClick={handleSuccess}
                             >
                                 저장하기
                             </Button>
@@ -76,32 +104,14 @@ const Table = () => {
                         <div className="td">메뉴명</div>
                         <div className="td">가격</div>
                         <div className="td">설명</div>
-                        <div>{menuText}</div>
                     </div>
                     {
                         items.map(item =>
-                            <div key={item.id} className="row">
-                                <TableTd  >
-                                    {
-                                        edit ? <Input value={item.imagePath} /> : item.imagePath
-                                    }
-                                </TableTd>
-                                <TableTd>
-                                    {
-                                        edit ? <Input value={item.name} /> : item.name
-                                    }
-                                </TableTd>
-                                <TableTd>
-                                    {
-                                        edit ? <Input value={item.price} /> : item.price
-                                    }
-                                </TableTd>
-                                <TableTd>
-                                    {
-                                        edit ? <Input value={item.desc} /> : item.desc
-                                    }
-                                </TableTd>
-                            </div>
+                            <TableTd
+                                key={item.id}
+                                className={"row"}
+                                item={item}
+                            />
                         )
                     }
                 </div>

@@ -16,11 +16,11 @@ const Input = ({ value }) => {
     const [inputValue, setInputValue] = useState(value)
     const dispatch = useDispatch()
     const handleUpdate = useCallback((e) => {
+        setInputValue(e.target.value)
         dispatch({
             type: UPDATE_MENU_ITEM,
             payload: inputValue
         })
-        setInputValue(e.target.value)
         console.log(inputValue)
 
     }, [inputValue])
