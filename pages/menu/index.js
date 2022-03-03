@@ -17,7 +17,7 @@ const Menu = () => {
             {
                 data.map(items => <AdminTable key={items.id} items={items} />)
             }
-            {/* <AdminTable data={data} /> */}
+
         </AppLayout>
     )
 }

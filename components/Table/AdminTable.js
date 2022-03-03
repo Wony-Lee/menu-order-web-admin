@@ -6,21 +6,15 @@ const AdminTable = ({ data, items }) => {
     const { categoryTab } = useSelector(state => state.category)
 
     return (
-        <div>
+        <div >
             {
                 categoryTab === items.id &&
-                <div>
+                <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     {
-                        items.items.map(item => <TableItem key={item.id} item={item}>{item.itemName}</TableItem>)
+                        items.items.map(item => <TableItem key={item.id} item={item} />)
                     }
                 </div>
             }
-
-            {/* {data.map(menuList =>
-            (<div key={menuList.id}>
-                {menuList.items.map(menuItem => (<p key={menuItem.id}>{menuItem.itemName}</p>))}
-            </div>)
-            )} */}
         </div>
     )
 }
