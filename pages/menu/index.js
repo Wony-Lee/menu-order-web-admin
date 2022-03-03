@@ -1,11 +1,23 @@
 import React from 'react'
+import AdminTable from '../../components/\bTable/AdminTable'
 import AppLayout from '../../components/AppLayout'
-import Table from '../../components/Member/Table'
+import CategoryList from '../../components/Category/CategoryList';
+import useCategories from '../../hooks/useCategories';
+import { useSelector } from 'react-redux';
 
 const Menu = () => {
+    const { isLoading, data } = useCategories("Category");
+    if (isLoading) {
+        return `...loading`
+    }
+    console.log('data ==>', data)
     return (
         <AppLayout>
-            <Table read={"read"} />
+            <CategoryList categories={data} />
+            {
+                data.map(items => <AdminTable key={items.id} items={items} />)
+            }
+            {/* <AdminTable data={data} /> */}
         </AppLayout>
     )
 }

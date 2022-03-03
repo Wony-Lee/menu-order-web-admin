@@ -5,11 +5,11 @@ import Router from 'next/router'
 import TableItem from './TableItem'
 import { TableWrap, TableLayout } from './styled';
 
-import Button from '../Element/Button';
-import Input from '../Element/Input'
+import Button from '../../Element/Button';
+import Input from '../../Element/Input'
 import TableTd from './TableTd'
-import { EDIT_STATE_OFF, EDIT_STATE_ON } from '../../reducer/menu'
-import { BACK_URL } from '../../config/config'
+import { EDIT_STATE_OFF, EDIT_STATE_ON } from '../../../reducer/menu'
+import { BACK_URL } from '../../../config/config'
 
 
 const Table = () => {
@@ -41,7 +41,6 @@ const Table = () => {
     const handleSuccess = useCallback(async () => {
         dispatch({
             type: EDIT_STATE_OFF,
-
         })
     }, [editState])
 
@@ -70,12 +69,13 @@ const Table = () => {
         <TableLayout>
             <TableWrap width={100 / 4}>
                 <div className="col">
-                    <div className="row-head">
+                    <form className="row-head">
                         <div>
                             <Button
                                 width={120}
                                 bg={"primary"}
                                 onClick={handleEdit}
+                                type={"button"}
                             >
                                 수정하기
                             </Button>
@@ -85,6 +85,7 @@ const Table = () => {
                                 width={120}
                                 bg={"error"}
                                 onClick={handleAddData}
+                                type={"button"}
                             >
                                 추가하기
                             </Button>
@@ -94,11 +95,12 @@ const Table = () => {
                                 width={120}
                                 bg={"primary"}
                                 onClick={handleSuccess}
+                                type={"submit"}
                             >
                                 저장하기
                             </Button>
                         </div>
-                    </div>
+                    </form>
                     <div className="row">
                         <div className="td">이미지</div>
                         <div className="td">메뉴명</div>

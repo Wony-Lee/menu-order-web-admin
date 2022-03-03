@@ -1,6 +1,7 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { combineReducers } from "redux";
 import menu from './menu'
+import category from './category'
 
 const rootReducer = (state, action) => {
     switch (action.type) {
@@ -8,7 +9,8 @@ const rootReducer = (state, action) => {
             return action.payload;
         default: {
             const combineReducer = combineReducers({
-                menu
+                menu,
+                category
             });
             return combineReducer(state, action);
         }

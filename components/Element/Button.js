@@ -10,7 +10,7 @@ const Layout = styled.button`
     color:white;
 `;
 
-const Button = ({ width, height, onClick, bg, margin, id, disabled, children }) => {
+const Button = ({ width, height, onClick, bg, margin, id, disabled, children, type }) => {
     return (
         <Layout
             width={width}
@@ -20,6 +20,7 @@ const Button = ({ width, height, onClick, bg, margin, id, disabled, children }) 
             margin={margin}
             id={id}
             disabled={disabled}
+            type={type}
         >
             {children}
         </Layout>

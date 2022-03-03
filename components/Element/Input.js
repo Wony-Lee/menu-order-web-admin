@@ -11,10 +11,11 @@ const InputStyled = styled.input`
     background:white;
 `;
 
-const Input = ({ value }) => {
+const Input = ({ value, id }) => {
     // const [inputText, handleUpdate, setInputText] = useInput(value)
     const [inputValue, setInputValue] = useState(value)
     const dispatch = useDispatch()
+
     const handleUpdate = useCallback((e) => {
         setInputValue(e.target.value)
         dispatch({
@@ -25,7 +26,7 @@ const Input = ({ value }) => {
 
     }, [inputValue])
     return (
-        <InputStyled value={inputValue} onChange={handleUpdate} />
+        <InputStyled value={inputValue} id={id} onChange={handleUpdate} />
     )
 }
 
