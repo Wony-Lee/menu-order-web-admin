@@ -42,10 +42,10 @@ const TableItem = ({ item }) => {
                 설명 :  {updateState ? itemTab === item.id && <input value={item.detail} onChange={handleTextChange} /> : item.detail}
             </p>
             <p>
-                가격 : {item.price}
+                가격 : {updateState ? itemTab === item.id && <input value={item.price} onChange={handleTextChange} /> : item.price}
             </p>
             <p>
-                재고량 : {item.quantity}
+                재고량 : {updateState ? itemTab === item.id && <input value={item.quantity} onChange={handleTextChange} /> : item.quantity}
             </p>
             <div>
                 <button onClick={handleUpdate}>수정</button>
