@@ -11,17 +11,17 @@ const TableItem = ({ item }) => {
     const { itemTab } = useSelector(state => state.category)
     const dispatch = useDispatch()
     const handleUpdate = useCallback(() => {
-        console.log('id', item.id)
         dispatch({
             type: SET_ITEM_TAB,
             payload: item.id
         })
         dispatch({
-            type: MENU_UPDATE_ON
+            type: MENU_UPDATE_ON,
         })
     }, [])
     const handleTextChange = useCallback((e) => {
         console.log(e.target.value)
+
     }, [])
     return (
         <TableItemLayout width={3}>
