@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import TableItem from './TableItem';
 
-const AdminTable = ({ data, items }) => {
+const AdminTable = ({ items }) => {
     const { categoryTab } = useSelector(state => state.category)
 
     return (
