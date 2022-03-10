@@ -21,7 +21,6 @@ const TableItem = ({ item }) => {
     }, [])
     const handleTextChange = useCallback((e) => {
         console.log(e.target.value)
-
     }, [])
     return (
         <TableItemLayout width={3}>
