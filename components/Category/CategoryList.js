@@ -4,6 +4,7 @@ import CategoryItem from './CategoryItem';
 import { CategoryLi, CategoryListLayout, CategoryUl } from './styled';
 import { useDispatch } from 'react-redux';
 import { SET_CATEGORY_TAB } from '../../reducer/category';
+import { DEFAULT_MODAL_ON } from '../../reducer/modal';
 
 const CategoryList = ({ categories }) => {
     const dispatch = useDispatch()
@@ -15,11 +16,20 @@ const CategoryList = ({ categories }) => {
         })
     }, [])
 
+    const handleModalOpen = useCallback(() => {
+        dispatch({
+            type: DEFAULT_MODAL_ON
+        })
+    }, [])
+
     return (
         <CategoryListLayout>
             <CategoryUl>
                 {categories.map(item => <CategoryLi key={item.id} id={item.id} onClick={handleTestSample} width={categories.length}>{item.name}</CategoryLi>)}
             </CategoryUl>
+            <div>
+                <button onClick={handleModalOpen}>등록하기</button>
+            </div>
         </CategoryListLayout>
     )
 }

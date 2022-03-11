@@ -9,6 +9,7 @@ import { BACK_URL } from '../../config/config';
 
 
 const TableItem = ({ item }) => {
+    const [files, setFiles] = useState([])
     const [inputValue, setInputValue] = useState({
         id: item.id,
         itemName: item.itemName,
@@ -31,6 +32,7 @@ const TableItem = ({ item }) => {
             type: MENU_UPDATE_ON,
         })
     }, [updateState, itemTab])
+
     const handleTextChange = useCallback((e) => {
         const { name, value } = e.target;
         setInputValue({
@@ -38,48 +40,40 @@ const TableItem = ({ item }) => {
             [name]: value
         })
     }, [inputValue])
+
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
-
         try {
             const formData = new FormData();
-            formData.append("id", id)
-            formData.append("itemName", itemName)
-            formData.append("detail", detail)
-            formData.append("price", price)
-            formData.append("quantity", quantity)
-            console.log('formData =>', formData)
-            formData.forEach(item => console.log('item =>   ', item))
-            dispatch({
-                type: MENU_UPDATE_OFF,
-            })
-            const menuList = {
-                category: "김밥",
+            const data = {
                 id: id,
                 itemName: itemName,
                 detail: detail,
                 images: images,
                 price: price,
                 quantity: quantity,
-            };
+            }
+            // images append
+            // formData.append("attachImages", new Blob([이미지, { type: "multipart/form-data" }))
+
+            formData.append("data", new Blob([JSON.stringify(data)], { type: "application/json" }))
+            dispatch({
+                type: MENU_UPDATE_OFF,
+            })
             const url = '/v1/item-update'
-            const response = await axios.post(`${BACK_URL}${url}`, menuList)
+            const response = await axios.post(`${BACK_URL}${url}`, formData)
             console.log(response);
         }
         catch (e) {
             console.error(e, "API CALL FAILURE")
         }
-
-    }, [])
+    }, [inputValue])
     const sample = useCallback(async (e) => {
 
         // const url = '/v1/item-update'
         // const response = await axios.post(`http://221.139.81.38:5000${url}`, inputValue)
         // console.log(response);
         e.preventDefault()
-
-
-
     }, [updateState])
     useEffect(() => {
 
@@ -156,14 +150,12 @@ const TableItem = ({ item }) => {
                     </InputBox>
                 </>
             }
-
             <div>
                 {
                     updateState && itemTab === inputValue.id ?
                         <button onClick={handleSubmit} type="submit">확인</button>
                         :
                         <button onClick={handleUpdate}>수정</button>
-
                 }
             </div>
         </TableItemLayout>
