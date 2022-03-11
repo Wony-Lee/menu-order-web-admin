@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import Image from 'next/image'
-import { TableItemLayout } from './styled'
+import { ImageBox, Input, InputBox, TableItemLayout } from './styled'
 import { useSelector, useDispatch } from 'react-redux';
-import { MENU_UPDATE_ON } from '../../reducer/adminPost';
+import { MENU_UPDATE_OFF, MENU_UPDATE_ON } from '../../reducer/adminPost';
 import { SET_ITEM_TAB } from '../../reducer/category';
+import axios from 'axios';
+import { BACK_URL } from '../../config/config';
 
 
 const TableItem = ({ item }) => {
@@ -14,18 +16,13 @@ const TableItem = ({ item }) => {
         detail: item.detail,
         price: item.price,
         quantity: item.quantity
-        // id: '',
-        // itemName: '',
-        // images: '',
-        // detail: '',
-        // price: '',
-        // quantity: '',
     })
     const { id, itemName, images, detail, price, quantity } = inputValue;
     const { updateState } = useSelector(state => state.adminPost)
     const { itemTab } = useSelector(state => state.category)
     const dispatch = useDispatch()
     const handleUpdate = useCallback(() => {
+        console.log(`what don't start?`)
         dispatch({
             type: SET_ITEM_TAB,
             payload: item.id
@@ -33,68 +30,141 @@ const TableItem = ({ item }) => {
         dispatch({
             type: MENU_UPDATE_ON,
         })
-    }, [])
+    }, [updateState, itemTab])
     const handleTextChange = useCallback((e) => {
-        console.log(e.target.value)
         const { name, value } = e.target;
         setInputValue({
             ...inputValue,
             [name]: value
         })
     }, [inputValue])
+    const handleSubmit = useCallback(async (e) => {
+        e.preventDefault();
 
+        try {
+            const formData = new FormData();
+            formData.append("id", id)
+            formData.append("itemName", itemName)
+            formData.append("detail", detail)
+            formData.append("price", price)
+            formData.append("quantity", quantity)
+            console.log('formData =>', formData)
+            formData.forEach(item => console.log('item =>   ', item))
+            dispatch({
+                type: MENU_UPDATE_OFF,
+            })
+            const menuList = {
+                category: "김밥",
+                id: id,
+                itemName: itemName,
+                detail: detail,
+                images: images,
+                price: price,
+                quantity: quantity,
+            };
+            const url = '/v1/item-update'
+            const response = await axios.post(`${BACK_URL}${url}`, menuList)
+            console.log(response);
+        }
+        catch (e) {
+            console.error(e, "API CALL FAILURE")
+        }
+
+    }, [])
+    const sample = useCallback(async (e) => {
+
+        // const url = '/v1/item-update'
+        // const response = await axios.post(`http://221.139.81.38:5000${url}`, inputValue)
+        // console.log(response);
+        e.preventDefault()
+
+
+
+    }, [updateState])
     useEffect(() => {
 
     }, [])
 
-
-
     return (
-        <TableItemLayout width={3}>
+        <TableItemLayout
+            width={3}
+            onSubmit={sample}
+            encType="multipart/form-data">
             {
                 item.images.map(img =>
-                    <img
-                        key={img.id}
-                        src={img.bytes}
-                        alt={img.name}
-                        name="itemImage"
-                    />
+                    <ImageBox key={img.id}>
+                        <img
+                            src={img.bytes}
+                            alt={img.name}
+                            name="itemImage"
+                        />
+                    </ImageBox>
                 )
             }
             {updateState && itemTab === inputValue.id ?
                 <>
-                    <p>
-                        메뉴명 : <input value={itemName} name="itemName" onChange={handleTextChange} />
-                    </p>
-                    <p>
-                        설명 :  <input value={detail} name="detail" onChange={handleTextChange} />
-                    </p>
-                    <p>
-                        가격 : <input value={price} name="price" onChange={handleTextChange} />
-                    </p>
-                    <p>
-                        재고량 : <input value={quantity} name="quantity" onChange={handleTextChange} />
-                    </p>
+                    <InputBox>
+                        <p>메뉴명</p> :
+                        <Input
+                            value={itemName}
+                            type="text"
+                            name="itemName"
+                            onChange={handleTextChange}
+                        />
+                    </InputBox>
+                    <InputBox>
+                        <p>설명</p> :
+                        <Input
+                            value={detail}
+                            type="text"
+                            name="detail"
+                            onChange={handleTextChange}
+                        />
+                    </InputBox>
+                    <InputBox>
+                        <p>가격</p> :
+                        <Input
+                            value={price}
+                            type="number"
+                            name="price"
+                            onChange={handleTextChange}
+                        />
+                    </InputBox>
+                    <InputBox>
+                        <p>재고량</p> :
+                        <Input
+                            value={quantity}
+                            type="number"
+                            name="quantity"
+                            onChange={handleTextChange}
+                        />
+                    </InputBox>
                 </>
                 :
                 <>
-                    <p>
-                        메뉴명 : {item.itemName}
-                    </p>
-                    <p>
-                        설명 : {item.detail}
-                    </p>
-                    <p>
-                        가격 : {item.price}
-                    </p>
-                    <p>
-                        재고량 :  {item.quantity}
-                    </p>
+                    <InputBox>
+                        <p>메뉴명</p> : {itemName}
+                    </InputBox>
+                    <InputBox>
+                        <p>설명</p> : {detail}
+                    </InputBox>
+                    <InputBox>
+                        <p>가격</p> : {price}
+                    </InputBox>
+                    <InputBox>
+                        <p>재고량</p> : {quantity}
+                    </InputBox>
                 </>
             }
 
             <div>
-                <button onClick={handleUpdate}>수정</button>
+                {
+                    updateState && itemTab === inputValue.id ?
+                        <button onClick={handleSubmit} type="submit">확인</button>
+                        :
+                        <button onClick={handleUpdate}>수정</button>
+
+                }
             </div>
         </TableItemLayout>
     )

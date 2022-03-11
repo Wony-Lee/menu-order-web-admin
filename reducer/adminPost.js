@@ -1,5 +1,6 @@
 const initialState = {
-    updateState: false
+    updateState: false,
+    // menuList: {}
 }
 
 export const MENU_UPDATE_ON = 'MENU_UPDATE_ON'
@@ -13,9 +14,11 @@ const reducer = (state = initialState, action) => {
                 updateState: true
             }
         case MENU_UPDATE_OFF:
+            console.log('payload ==> ', action.payload)
             return {
                 ...state,
-                updateState: false
+                updateState: false,
+                // menuList: action.payload
             }
         default:
             return state
