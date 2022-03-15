@@ -1,5 +1,5 @@
 const initialState = {
-    categoryTab: 1,
+    categoryTab: "",
     itemTab: 1
 }
 

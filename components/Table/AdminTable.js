@@ -8,7 +8,7 @@ const AdminTable = ({ items }) => {
     return (
         <div >
             {
-                categoryTab === items.id &&
+                categoryTab === items.name &&
                 <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                     {
                         items.items.map(item => <TableItem key={item.id} item={item} />)

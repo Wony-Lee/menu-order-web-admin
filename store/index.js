@@ -2,7 +2,7 @@ import { createWrapper } from "next-redux-wrapper";
 import { createStore, applyMiddleware, compose } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
-import reducer from "../reducer/";
+import reducer from "../reducer";
 import rootSaga from "../sagas/";
 
 const loggerMiddleware = ({ dispatch, getState }) => (next) => (action) => {

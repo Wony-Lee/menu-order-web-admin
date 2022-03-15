@@ -9,10 +9,13 @@ import { DEFAULT_MODAL_ON } from '../../reducer/modal';
 const CategoryList = ({ categories }) => {
     const dispatch = useDispatch()
     const handleTestSample = useCallback((e) => {
+        console.log('categories', categories)
+        console.log('name ===> ', e.target)
         console.log('gategories', e.target.id)
         dispatch({
             type: SET_CATEGORY_TAB,
-            payload: Number(e.target.id)
+            payload: e.target.id
+            // payload: Number(e.target.id)
         })
     }, [])
 
@@ -25,7 +28,7 @@ const CategoryList = ({ categories }) => {
     return (
         <CategoryListLayout>
             <CategoryUl>
-                {categories.map(item => <CategoryLi key={item.id} id={item.id} onClick={handleTestSample} width={categories.length}>{item.name}</CategoryLi>)}
+                {categories.map(item => <CategoryLi key={item.id} id={item.name} onClick={handleTestSample} width={categories.length}>{item.name}</CategoryLi>)}
             </CategoryUl>
             <div>
                 <button onClick={handleModalOpen}>등록하기</button>

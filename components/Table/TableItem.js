@@ -70,7 +70,7 @@ const TableItem = ({ item }) => {
             console.error(e, "API CALL FAILURE")
         }
     }, [inputValue])
-    const sample = useCallback(async (e) => {
+    const handleOnSubmit = useCallback(async (e) => {
         e.preventDefault()
     }, [updateState])
     const handleModalOpen = useCallback(() => {
@@ -86,7 +86,7 @@ const TableItem = ({ item }) => {
     return (
         <TableItemLayout
             width={3}
-            onSubmit={sample}
+            onSubmit={handleOnSubmit}
             encType="multipart/form-data">
             {
                 item.images.map(img =>
