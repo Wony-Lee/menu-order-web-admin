@@ -5,7 +5,7 @@ const initialState = {
 export const DEFAULT_MODAL_ON = 'DEFAULT_MODAL_ON'
 export const DEFAULT_MODAL_OFF = 'DEFAULT_MODAL_OFF'
 
-export const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case DEFAULT_MODAL_ON:
             return {
@@ -21,3 +21,5 @@ export const reducer = (state = initialState, action) => {
             return state;
     }
 }
+
+export default reducer;

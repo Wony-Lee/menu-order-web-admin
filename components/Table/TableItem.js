@@ -6,6 +6,8 @@ import { MENU_UPDATE_OFF, MENU_UPDATE_ON } from '../../reducer/adminPost';
 import { SET_ITEM_TAB } from '../../reducer/category';
 import axios from 'axios';
 import { BACK_URL } from '../../config/config';
+import { DEFAULT_MODAL_ON } from '../../reducer/modal';
+import DefaultModal from '../Modal/DefaultModal';
 
 
 const TableItem = ({ item }) => {
@@ -69,12 +71,14 @@ const TableItem = ({ item }) => {
         }
     }, [inputValue])
     const sample = useCallback(async (e) => {
-
-        // const url = '/v1/item-update'
-        // const response = await axios.post(`http://221.139.81.38:5000${url}`, inputValue)
-        // console.log(response);
         e.preventDefault()
     }, [updateState])
+    const handleModalOpen = useCallback(() => {
+        console.log('Modal')
+        dispatch({
+            type: DEFAULT_MODAL_ON
+        })
+    }, [])
     useEffect(() => {
 
     }, [])

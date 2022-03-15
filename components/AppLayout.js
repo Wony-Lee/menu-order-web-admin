@@ -2,10 +2,11 @@ import React from 'react'
 import MenuList from './SideMenu/MenuList';
 import Navigation from './Nav/Navigation';
 import { BodyLayout, ContentLayout } from './styled';
+import DefaultModal from './Modal/DefaultModal';
 
 const AppLayout = ({ children }) => {
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <Navigation />
             <BodyLayout>
                 <MenuList />
@@ -13,6 +14,7 @@ const AppLayout = ({ children }) => {
                     {children}
                 </ContentLayout>
             </BodyLayout>
+            <DefaultModal />
         </div>
     )
 }
